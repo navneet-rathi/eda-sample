@@ -9,11 +9,12 @@
         group_id: "{{ kafka_group }}"
 
   rules:
-    - name: R1 - Heard "Hello!"
-      condition: event.body.message == "Hello!"
+    - name: ALl in one Solution
+      condition: event.body.message == ""
       action:
-        debug:
-          msg: "You said, '{{ event.body.message }}'. Is it me you're looking for?"
+        run_job_template:
+          name: do-something
+          organization: Default
 
     - name: R2 - Didn't hear "Hello!"
       condition: event.body.message is defined and event.body.message != "Hello!"
