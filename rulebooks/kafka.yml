@@ -3,14 +3,14 @@
   hosts: all
   sources:
     - ansible.eda.kafka:
-        host: 192.168.1.14
+        host: 192.168.1.6
         port: 9092
-        topic: my-topic
+        topic: mytopic
         group_id: ansible-eda
         
   rules:
     - name: ALl in one Solution
-      condition: event.body.message == ""
+      condition: event.body.message == "Hello"
       action:
         run_job_template:
           name: do-something
