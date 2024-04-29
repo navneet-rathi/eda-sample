@@ -1,0 +1,39 @@
+---
+- name: Create Directory and files
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars: 
+    destination_folder: 
+        - /root/data_repo/dest1
+        - /root/data_repo/dest2
+        - /root/data_repo/dest3
+        - /root/data_repo/dest4
+  tasks:
+    - debug:
+        msg: "Thank you, {{ ansible_eda.event.sender | default('my friend') }}!"
+
+    - debug:
+        msg: "{{ destination_folder }} {{ destination_folder | type_debug }} "
+
+    - name: Ensure the directory /example/directory exists
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        mode: '0755'
+      loop: "{{ destination_folder }}"
+      ignore_errors: True
+
+    # - name: Create files in multiple location
+    #   file: 
+    #     path: "{{ item + '/' + ansible_eda.event.meta.received_at.rstrip('Z')}}"
+    #     state: touch
+    #   loop: "{{ destination_folder }}"
+    #   ignore_errors: True
+    
+    - name: Add data to a file
+      copy: 
+        dest: "{{ item + '/' + ansible_eda.event.meta.received_at.rstrip('Z')}}"
+        content: "{{ ansible_eda.event }}"
+      loop: "{{ destination_folder }}"
+      ignore_errors: True
