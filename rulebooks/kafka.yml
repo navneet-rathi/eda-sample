@@ -3,10 +3,11 @@
   hosts: all
   sources:
     - ansible.eda.kafka:
-        host: "192.168.1.14"
-        port: "9092"
-        topic: "my-topic"
-
+        host: 192.168.1.14
+        port: 9092
+        topic: my-topic
+        group_id: ansible-eda
+        
   rules:
     - name: ALl in one Solution
       condition: event.body.message == ""
