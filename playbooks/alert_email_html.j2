@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>nginx restart as its down on {{inventory_hostname}}</title>
+
+</head>
+
+<body>
+
+    <p>Dear Team,</p>
+
+    <p>This is an automated alert to inform you:</p>
+    <p>nginx is restarted on below hosts
+    <ul>
+     {% for host in ansible_play_hosts %}
+        <li>{{ host }}</li>
+     {% endfor %}
+    </ul>
+
+    <p>Best regards,<br/><a href="https://www.redhat.com/en/technologies/management/ansible/event-driven-ansible">Redhat Ansbile EDA</a></p>
+
+</body>
+
+</html>
