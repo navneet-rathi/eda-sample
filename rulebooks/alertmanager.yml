@@ -20,7 +20,7 @@
           job_args:
             limit: "{{ event.meta.hosts }}"
 
-    - name: SELinux was disabled
+    - name: nginx was down
       condition: event.alert.labels.alertname == "nginx down" and event.alert.status == "firing"
       action:
         run_job_template:
@@ -35,7 +35,7 @@
         debug:
           msg: "enabled on: {{ event.meta.hosts }}"
           
-    - name: Nginx  was restarted
+    - name: Nginx was restarted
       condition: event.alert.labels.alertname == "nginx down" and event.alert.status == "resolved"
       action:
         debug:
