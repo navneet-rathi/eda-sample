@@ -2,7 +2,6 @@
 - name: Listen for events on a webhook
   hosts: all
   ## Define our source for events
-  execution_strategy: parallel
   sources:
     - ansible.eda.webhook:
         host: 0.0.0.0
