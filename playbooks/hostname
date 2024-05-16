@@ -1,0 +1,7 @@
+---
+- name: check hostname
+  hosts: localhost
+  gather_facts: true
+  tasks:
+    - name: check hostname
+      debug: "{{ansible_facts['hostname']}}"
