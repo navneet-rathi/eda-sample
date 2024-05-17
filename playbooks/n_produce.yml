@@ -1,0 +1,37 @@
+---
+- name: Create Directory and files
+  hosts: aap1.example.com
+  # connection: local
+  gather_facts: false
+  vars:
+    dest_dir: "/data_repo"
+    destination_folder:
+      - "{{dest_dir}}/dest1"
+      - "{{dest_dir}}/dest2"
+      - "{{dest_dir}}/dest3"
+      - "{{dest_dir}}/dest4"
+    src_dir:
+      - "{{dest_dir}}/dest1"
+    src_file: "{{dest_dir}}/demo.json"   
+  tasks:
+    - name: Ensure the directory /example/directory exists
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        mode: '0755'
+      loop: "{{ destination_folder }}"
+      ignore_errors: True
+
+      
+    - name: Assemble from fragments from a directory
+      ansible.builtin.assemble:
+        src: "{{dest_dir}}/dest1"
+        dest: "{{dest_dir}}/demo.json"
+      delegate_to: localhost
+      
+    #- name: Add data to a file
+    #  copy:
+    #    dest: "{{ item + '/' + ansible_eda.event.meta.received_at.rstrip('Z')}}"
+    #    content: "{{ ansible_eda.event }}"
+    #  loop: "{{ destination_folder }}"
+    #  ignore_errors: True
