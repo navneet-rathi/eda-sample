@@ -40,4 +40,4 @@
     - name: Capture all other events from this source
       condition: event.alert is defined
       action:
-        debug:
+        debug:  
