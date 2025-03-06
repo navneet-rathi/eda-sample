@@ -28,6 +28,7 @@
           organization: Default
           job_args:
             limit: "{{ event.meta.hosts }}"
+          extra_vars:  
             usb_disable: "true"
 
     - name: SELinux was enabled
