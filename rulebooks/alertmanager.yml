@@ -18,27 +18,24 @@
           organization: Default
           job_args:
             limit: "{{ event.meta.hosts }}"
+            
 
-    - name: nginx was down
-      condition: event.alert.labels.alertname == "nginx down" and event.alert.status == "firing"
+    - name: USB device detected
+      condition: event.alert.labels.alertname == "USBDeviceDetected" and event.alert.status == "firing"
       action:
         run_job_template:
-          name: Nginx Restart
+          name: 01-js-usb
           organization: Default
           job_args:
-            limit: "{{ event.meta.hosts }}"        
+            limit: "{{ event.meta.hosts }}"
+            usb_disable: "true"
 
     - name: SELinux was enabled
       condition: event.alert.labels.alertname == "selinux disabled" and event.alert.status == "resolved"
       action:
         debug:
           msg: "enabled on: {{ event.meta.hosts }}"
-          
-    - name: Nginx was restarted
-      condition: event.alert.labels.alertname == "nginx down" and event.alert.status == "resolved"
-      action:
-        debug:
-          msg: "enabled on: {{ event.meta.hosts }}"          
+                 
 
     - name: Capture all other events from this source
       condition: event.alert is defined
