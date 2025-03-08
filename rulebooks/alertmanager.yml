@@ -21,7 +21,7 @@
             
 
     - name: USB device detected
-      condition: event.alert.labels.alertname == "USBDeviceDetected" and event.alert.status == "firing"
+      condition: event.alert.labels.alertname == "USB Device Detected" and event.alert.status == "firing"
       action:
         run_job_template:
           name: 01-js-usb
@@ -29,7 +29,7 @@
           job_args:
             limit: "{{ event.meta.hosts }}"
           extra_vars:  
-            usb_disable: "true"
+            usb_disable: true
 
     - name: SELinux was enabled
       condition: event.alert.labels.alertname == "selinux disabled" and event.alert.status == "resolved"
