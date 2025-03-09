@@ -31,6 +31,17 @@
           extra_vars:  
             usb_disable: true
 
+    - name: USB device detected
+      condition: event.alert.labels.alertname == "UserPasswordExpired except Administrator" and event.alert.status == "firing"
+      action:
+        run_job_template:
+          name: 01-email-alert
+          organization: Default
+          job_args:
+            limit: "{{ event.meta.hosts }}"
+#          extra_vars:  
+#            usb_disable: true
+
     - name: SELinux was enabled
       condition: event.alert.labels.alertname == "selinux disabled" and event.alert.status == "resolved"
       action:
