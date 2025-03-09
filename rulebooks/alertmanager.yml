@@ -31,7 +31,7 @@
           extra_vars:  
             usb_disable: true
 
-    - name: USB device detected
+    - name: UserPasswordExpired except Administrato
       condition: event.alert.labels.alertname == "UserPasswordExpired except Administrator" and event.alert.status == "firing"
       action:
         run_job_template:
