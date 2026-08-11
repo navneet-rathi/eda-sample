@@ -19,7 +19,6 @@
           job_args:
             limit: "{{ event.meta.hosts }}"
 
-
     - name: USB device detected
       condition: event.alert.labels.alertname == "USB Device Detected" and event.alert.status == "firing"
       action:
@@ -45,7 +44,6 @@
       action:
         debug:
           msg: "enabled on: {{ event.meta.hosts }}"
-
 
     - name: Capture all other events from this source
       condition: event.alert is defined
